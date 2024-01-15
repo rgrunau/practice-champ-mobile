@@ -31,7 +31,9 @@ function InitialLayout() {
 
   useEffect(() => {
     if (!isLoaded) {
+      console.log("isLoaded", isLoaded);
       console.log("not loaded");
+      console.log("is signed in", isSignedIn);
       return;
     }
     const inTabGroup = segments[0] === "(auth)";
