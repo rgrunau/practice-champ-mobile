@@ -4,6 +4,7 @@ interface TextInputProps {
   placeholder: string;
   keyboardType: "email-address" | "default" | "numeric" | "phone-pad";
   isSecure?: boolean;
+  autoCap?: "none" | "sentences" | "words" | "characters";
   handleChange: (value: string) => void;
 }
 
@@ -12,6 +13,7 @@ const TextInputComponent = ({
   keyboardType,
   handleChange,
   isSecure,
+  autoCap,
 }: TextInputProps) => {
   return (
     <View style={styles.inputContainer}>
@@ -22,6 +24,7 @@ const TextInputComponent = ({
         keyboardType={keyboardType}
         onChangeText={handleChange}
         secureTextEntry={isSecure}
+        autoCapitalize={autoCap}
       />
     </View>
   );
