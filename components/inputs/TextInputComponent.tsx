@@ -2,16 +2,26 @@ import { View, TextInput, StyleSheet } from "react-native";
 
 interface TextInputProps {
   placeholder: string;
+  keyboardType: "email-address" | "default" | "numeric" | "phone-pad";
+  isSecure?: boolean;
+  handleChange: (value: string) => void;
 }
 
-const TextInputComponent = ({ placeholder }: TextInputProps) => {
+const TextInputComponent = ({
+  placeholder,
+  keyboardType,
+  handleChange,
+  isSecure,
+}: TextInputProps) => {
   return (
     <View style={styles.inputContainer}>
       <TextInput
         placeholder={placeholder}
         style={styles.input}
         placeholderTextColor={"#000"}
-        keyboardType="email-address"
+        keyboardType={keyboardType}
+        onChangeText={handleChange}
+        secureTextEntry={isSecure}
       />
     </View>
   );
