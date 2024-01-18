@@ -6,6 +6,7 @@ import { NewUser } from "../../const/interfaces";
 import { useSignUp } from "@clerk/clerk-expo";
 import { Link } from "expo-router";
 import { useRouter } from "expo-router";
+import { addNewUser } from "../(auth)/hooks/useAddNewUser";
 
 export default function SignUpRoute() {
   const [isLoading, setIsLoading] = useState(false);
@@ -59,6 +60,9 @@ export default function SignUpRoute() {
           code,
         });
       await setActive({ session: completedVerification.createdSessionId });
+      if (newUser) {
+        await addNewUser(newUser);
+      }
       router.replace("/home");
     } catch (error) {
       console.error(JSON.stringify(error, null, 2));
