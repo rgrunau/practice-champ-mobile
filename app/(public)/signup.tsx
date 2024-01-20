@@ -3,7 +3,7 @@ import TextInputComponent from "../../components/inputs/TextInputComponent";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useState } from "react";
 import { NewUser } from "../../const/interfaces";
-import { useSignUp, useUser } from "@clerk/clerk-expo";
+import { useSignUp } from "@clerk/clerk-expo";
 import { Link } from "expo-router";
 import { useRouter } from "expo-router";
 import { useAddNewUser } from "../(auth)/hooks/useAddNewUser";
@@ -19,10 +19,8 @@ export default function SignUpRoute() {
     lastName: "",
     screenName: "",
   });
-  const { user } = useUser();
   const [pendingVerification, setPendingVerification] = useState(false);
   const [code, setCode] = useState("");
-  const router = useRouter();
   const handleInputChange = (name: keyof NewUser, value: string) => {
     // handle input change and update according state
     setNewUser(
@@ -54,6 +52,7 @@ export default function SignUpRoute() {
       }
     }
   };
+
   const handleVerification = async () => {
     if (!isLoaded) return;
     try {
@@ -68,11 +67,8 @@ export default function SignUpRoute() {
           lastName: newUser.lastName,
           screenName: newUser.screenName,
           email: newUser.email,
-          clerkId: user?.id,
         };
         await mutate(initialUser);
-
-        router.replace("/home");
       }
     } catch (error) {
       console.error(JSON.stringify(error, null, 2));

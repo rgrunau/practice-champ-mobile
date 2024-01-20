@@ -47,14 +47,14 @@ const tokenCache = {
 
 const RootLayout = () => {
   return (
-    <ClerkProvider
-      publishableKey={CLERK_PUBLISHABLE_KEY}
-      tokenCache={tokenCache}
-    >
-      <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <ClerkProvider
+        publishableKey={CLERK_PUBLISHABLE_KEY}
+        tokenCache={tokenCache}
+      >
         <InitialLayout />
-      </QueryClientProvider>
-    </ClerkProvider>
+      </ClerkProvider>
+    </QueryClientProvider>
   );
 };
 
