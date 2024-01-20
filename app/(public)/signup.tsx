@@ -61,9 +61,18 @@ export default function SignUpRoute() {
         });
       await setActive({ session: completedVerification.createdSessionId });
       if (newUser) {
-        await addNewUser(newUser);
+        const user = {
+          firstName: newUser.firstName,
+          lastName: newUser.lastName,
+          screenName: newUser.screenName,
+          email: newUser.email,
+        };
+        const response = await addNewUser(user);
+
+        if (response.ok) {
+          router.replace("/home");
+        }
       }
-      router.replace("/home");
     } catch (error) {
       console.error(JSON.stringify(error, null, 2));
     }

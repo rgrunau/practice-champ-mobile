@@ -8,5 +8,8 @@ export const addNewUser = async (newUser: NewUser) => {
       "Content-Type": "application/json",
     },
   });
+  if (!response.ok) {
+    throw new Error("Failed to add new user");
+  }
   return response.json();
 };
