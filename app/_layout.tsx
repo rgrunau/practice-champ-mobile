@@ -2,10 +2,12 @@ import { ClerkProvider, useAuth } from "@clerk/clerk-expo";
 import { Slot, useRouter, useSegments } from "expo-router";
 import { useEffect } from "react";
 import * as SecureStore from "expo-secure-store";
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 
 const CLERK_PUBLISHABLE_KEY =
   "pk_test_b3JpZW50ZWQtY29yYWwtNjEuY2xlcmsuYWNjb3VudHMuZGV2JA";
 
+const queryClient = new QueryClient();
 const InitialLayout = () => {
   const { isLoaded, isSignedIn } = useAuth();
   const segments = useSegments();
@@ -49,7 +51,9 @@ const RootLayout = () => {
       publishableKey={CLERK_PUBLISHABLE_KEY}
       tokenCache={tokenCache}
     >
-      <InitialLayout />
+      <QueryClientProvider client={queryClient}>
+        <InitialLayout />
+      </QueryClientProvider>
     </ClerkProvider>
   );
 };

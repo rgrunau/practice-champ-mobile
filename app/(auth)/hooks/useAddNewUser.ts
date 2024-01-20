@@ -1,6 +1,7 @@
+import { useRouter } from "expo-router";
 import { NewUser } from "../../../const/interfaces";
-
-export const addNewUser = async (newUser: NewUser) => {
+import { useMutation } from "@tanstack/react-query";
+const addNewUser = async (newUser: NewUser) => {
   const response = await fetch("http://localhost:3000/api/user/create", {
     method: "POST",
     body: JSON.stringify(newUser),
@@ -12,4 +13,18 @@ export const addNewUser = async (newUser: NewUser) => {
     throw new Error("Failed to add new user");
   }
   return response.json();
+};
+
+export const useAddNewUser = () => {
+  const router = useRouter();
+  return useMutation({
+    mutationFn: addNewUser,
+    onSuccess: () => {
+      // Invalidate and refetch
+      router.replace("/home");
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
 };

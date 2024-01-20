@@ -3,14 +3,15 @@ import TextInputComponent from "../../components/inputs/TextInputComponent";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useState } from "react";
 import { NewUser } from "../../const/interfaces";
-import { useSignUp } from "@clerk/clerk-expo";
+import { useSignUp, useUser } from "@clerk/clerk-expo";
 import { Link } from "expo-router";
 import { useRouter } from "expo-router";
-import { addNewUser } from "../(auth)/hooks/useAddNewUser";
+import { useAddNewUser } from "../(auth)/hooks/useAddNewUser";
 
 export default function SignUpRoute() {
   const [isLoading, setIsLoading] = useState(false);
   const { isLoaded, signUp, setActive } = useSignUp();
+  const { mutate } = useAddNewUser();
   const [newUser, setNewUser] = useState<NewUser | null>({
     email: "",
     password: "",
@@ -18,6 +19,7 @@ export default function SignUpRoute() {
     lastName: "",
     screenName: "",
   });
+  const { user } = useUser();
   const [pendingVerification, setPendingVerification] = useState(false);
   const [code, setCode] = useState("");
   const router = useRouter();
@@ -61,17 +63,16 @@ export default function SignUpRoute() {
         });
       await setActive({ session: completedVerification.createdSessionId });
       if (newUser) {
-        const user = {
+        const initialUser = {
           firstName: newUser.firstName,
           lastName: newUser.lastName,
           screenName: newUser.screenName,
           email: newUser.email,
+          clerkId: user?.id,
         };
-        const response = await addNewUser(user);
+        await mutate(initialUser);
 
-        if (response.ok) {
-          router.replace("/home");
-        }
+        router.replace("/home");
       }
     } catch (error) {
       console.error(JSON.stringify(error, null, 2));
