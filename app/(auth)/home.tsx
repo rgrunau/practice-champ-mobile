@@ -2,22 +2,28 @@ import { useRouter } from "expo-router";
 import { View, Text, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import MainAppWrapper from "./components/layout/mainAppWrapper";
-import {
-  getSignedInUser,
-  useGetSignedInUser,
-} from "../../hooks/useGetSignedInUser";
+import { useGetSignedInUser } from "../../hooks/useGetSignedInUser";
 
 export default function home() {
   const router = useRouter();
   const { isLoading, data } = useGetSignedInUser() ?? {};
-  // const signedInUser = getSignedInUser("robertgrunau@gmail.com");
-  if (isLoading) return <Text>Loading...</Text>;
+  console.log(data?.message);
+  const { screenName } = data.data ?? {};
 
   return (
     <MainAppWrapper>
-      <SafeAreaView>
-        <View style={styles.header}></View>
-      </SafeAreaView>
+      {isLoading && (
+        <View style={styles.container}>
+          <Text style={styles.text}>Loading...</Text>
+        </View>
+      )}
+      {!isLoading && data.data && (
+        <View style={styles.container}>
+          <Text style={styles.text}>
+            Welcome to practice champ, {screenName}!
+          </Text>
+        </View>
+      )}
     </MainAppWrapper>
   );
 }
@@ -27,12 +33,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "flex-start",
-    justifyContent: "flex-end",
+    justifyContent: "center",
   },
-  header: {
-    fontSize: 20,
-    padding: 15,
-    alignItems: "flex-end",
-    justifyContent: "flex-end",
+  text: {
+    fontSize: 16,
+    color: "#000",
   },
 });

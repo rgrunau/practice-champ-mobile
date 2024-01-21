@@ -1,15 +1,13 @@
 import { useUser } from "@clerk/clerk-expo";
 import { useQuery } from "@tanstack/react-query";
 
-export const getSignedInUser = async (userEmail: string) => {
-  console.log("from api call", userEmail);
+export const getSignedInUser = async (userEmail: string, clerkId: string) => {
   const response = await fetch(
-    `http://localhost:3000/api/user/get-user?email=${userEmail}`,
+    `http://localhost:3000/api/user/get-user?email=${userEmail}&clerkId=${clerkId}`,
     {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        email: userEmail,
       },
     }
   );
@@ -23,10 +21,10 @@ export const getSignedInUser = async (userEmail: string) => {
 export const useGetSignedInUser = () => {
   const { user } = useUser();
   const userEmail = user?.emailAddresses[0].emailAddress ?? "";
+  const clerkId = user?.id ?? "";
   const { isLoading, data } = useQuery({
     queryKey: ["signedInUser"],
-    queryFn: () => getSignedInUser(userEmail),
+    queryFn: () => getSignedInUser(userEmail, clerkId),
   });
-  console.log("from hook", data);
   return { isLoading, data };
 };
