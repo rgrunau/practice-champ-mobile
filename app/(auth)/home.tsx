@@ -1,20 +1,20 @@
 import { useRouter } from "expo-router";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import MainAppWrapper from "./components/layout/mainAppWrapper";
+import { useGetSignedInUser } from "../../hooks/useGetSignedInUser";
 
 export default function home() {
   const router = useRouter();
+  const { isLoading, data } = useGetSignedInUser() ?? {};
+  if (isLoading) return <Text>Loading...</Text>;
+
   return (
-    <SafeAreaView>
-      <View style={styles.header}>
-        <TouchableOpacity onPress={() => router.replace("/profile")}>
-          <Text>Profile</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.container}>
-        <Text>You are home</Text>
-      </View>
-    </SafeAreaView>
+    <MainAppWrapper>
+      <SafeAreaView>
+        <View style={styles.header}></View>
+      </SafeAreaView>
+    </MainAppWrapper>
   );
 }
 
