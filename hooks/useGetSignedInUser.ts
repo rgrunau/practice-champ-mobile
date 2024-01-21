@@ -1,15 +1,18 @@
 import { useUser } from "@clerk/clerk-expo";
 import { useQuery } from "@tanstack/react-query";
 
-const getSignedInUser = async (userEmail: string) => {
+export const getSignedInUser = async (userEmail: string) => {
   console.log("from api call", userEmail);
-  const response = await fetch("http://localhost:3000/api/user/get-user", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ userEmail }),
-  });
+  const response = await fetch(
+    `http://localhost:3000/api/user/get-user?email=${userEmail}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        email: userEmail,
+      },
+    }
+  );
 
   if (!response.ok) {
     throw new Error("Failed to get signed in user");
@@ -24,6 +27,6 @@ export const useGetSignedInUser = () => {
     queryKey: ["signedInUser"],
     queryFn: () => getSignedInUser(userEmail),
   });
-  console.log(data);
+  console.log("from hook", data);
   return { isLoading, data };
 };

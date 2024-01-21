@@ -2,11 +2,15 @@ import { useRouter } from "expo-router";
 import { View, Text, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import MainAppWrapper from "./components/layout/mainAppWrapper";
-import { useGetSignedInUser } from "../../hooks/useGetSignedInUser";
+import {
+  getSignedInUser,
+  useGetSignedInUser,
+} from "../../hooks/useGetSignedInUser";
 
 export default function home() {
   const router = useRouter();
   const { isLoading, data } = useGetSignedInUser() ?? {};
+  // const signedInUser = getSignedInUser("robertgrunau@gmail.com");
   if (isLoading) return <Text>Loading...</Text>;
 
   return (
