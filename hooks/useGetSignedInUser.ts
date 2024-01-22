@@ -19,12 +19,15 @@ export const getSignedInUser = async (userEmail: string, clerkId: string) => {
 };
 
 export const useGetSignedInUser = () => {
-  const { user } = useUser();
+  const { isLoaded, user } = useUser();
   const userEmail = user?.emailAddresses[0].emailAddress ?? "";
   const clerkId = user?.id ?? "";
   const { isLoading, data } = useQuery({
     queryKey: ["signedInUser"],
     queryFn: () => getSignedInUser(userEmail, clerkId),
   });
+  if (!isLoaded) {
+    return { isLoading: true };
+  }
   return { isLoading, data };
 };
