@@ -29,6 +29,5 @@ export const useGetSignedInUser = () => {
   if (!isLoaded) {
     return { isLoading: true };
   }
-  console.log(data);
   return { isLoading, data };
 };

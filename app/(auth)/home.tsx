@@ -29,9 +29,10 @@ export default function home() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    padding: 15,
     backgroundColor: "#fff",
     alignItems: "flex-start",
-    justifyContent: "center",
+    justifyContent: "flex-start",
   },
   text: {
     fontSize: 16,
