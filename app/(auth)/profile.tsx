@@ -1,10 +1,7 @@
-import { Text, StyleSheet, View, TouchableOpacity, Button } from "react-native";
+import { StyleSheet, View, Button } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useUser } from "@clerk/clerk-expo";
 import { useAuth } from "@clerk/clerk-expo";
 import { useGetSignedInUser } from "../../hooks/useGetSignedInUser";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faCamera } from "@fortawesome/free-solid-svg-icons";
 import MainAppWrapper from "./components/layout/mainAppWrapper";
 import ProfileHeader from "./components/layout/profile/profileHeader";
 

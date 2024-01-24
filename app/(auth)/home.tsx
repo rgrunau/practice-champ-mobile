@@ -6,7 +6,7 @@ import { useGetSignedInUser } from "../../hooks/useGetSignedInUser";
 export default function home() {
   const router = useRouter();
   const { isLoading, data } = useGetSignedInUser() ?? {};
-  const { screenName } = data?.data ?? {};
+  const { screenName, userProfile } = data?.data ?? {};
 
   return (
     <MainAppWrapper>
@@ -15,10 +15,10 @@ export default function home() {
           <Text style={styles.text}>Loading...</Text>
         </View>
       )}
-      {!isLoading && data.data && (
+      {!isLoading && data?.data && (
         <View style={styles.container}>
           <Text style={styles.text}>
-            Welcome to practice champ, {screenName}!
+            Welcome to practice champ, {userProfile.screenName}!
           </Text>
         </View>
       )}

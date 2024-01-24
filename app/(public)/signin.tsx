@@ -1,7 +1,6 @@
 import { Link, useRouter } from "expo-router";
 import { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { TextInput } from "react-native-gesture-handler";
 import TextInputComponent from "../../components/inputs/TextInputComponent";
 import { useSignIn } from "@clerk/clerk-expo";
 
