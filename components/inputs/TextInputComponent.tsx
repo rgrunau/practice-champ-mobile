@@ -6,6 +6,7 @@ interface TextInputProps {
   isSecure?: boolean;
   autoCap?: "none" | "sentences" | "words" | "characters";
   handleChange: (value: string) => void;
+  value?: string;
 }
 
 const TextInputComponent = ({
@@ -14,10 +15,12 @@ const TextInputComponent = ({
   handleChange,
   isSecure,
   autoCap,
+  value,
 }: TextInputProps) => {
   return (
     <View style={styles.inputContainer}>
       <TextInput
+        value={value}
         placeholder={placeholder}
         style={styles.input}
         placeholderTextColor={"#000"}
@@ -32,12 +35,12 @@ const TextInputComponent = ({
 
 const styles = StyleSheet.create({
   inputContainer: {
-    width: 400,
+    width: "100%",
     marginBottom: 8,
     marginTop: 8,
   },
   input: {
-    width: 400,
+    width: "100%",
     height: 50,
     borderWidth: 1,
     borderColor: "#000",
