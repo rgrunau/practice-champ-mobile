@@ -1,4 +1,5 @@
 import { useRouter } from "expo-router";
+import { Icon } from "@fortawesome/fontawesome-svg-core";
 import React from "react";
 import {
   SafeAreaView,
@@ -7,6 +8,8 @@ import {
   Text,
   TouchableOpacity,
 } from "react-native";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 export default function MainAppWrapper({
   children,
@@ -18,6 +21,9 @@ export default function MainAppWrapper({
     <View style={styles.container}>
       <SafeAreaView>{children}</SafeAreaView>
       <View style={styles.footer}>
+        <TouchableOpacity onPress={() => router.replace("/new-session")}>
+          <FontAwesomeIcon icon={faPlus} size={30} color="#fff" />
+        </TouchableOpacity>
         <TouchableOpacity onPress={() => router.replace("/profile")}>
           <Text style={styles.appBarText}>Profile</Text>
         </TouchableOpacity>
@@ -35,6 +41,8 @@ const styles = StyleSheet.create({
     height: "100%",
   },
   footer: {
+    flex: 1,
+    flexDirection: "row",
     position: "absolute",
     left: 0,
     right: 0,

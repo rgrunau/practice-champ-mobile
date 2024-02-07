@@ -9,7 +9,7 @@ export const getSignedInUser = async (userEmail: string, clerkId: string) => {
       headers: {
         "Content-Type": "application/json",
       },
-    }
+    },
   );
 
   if (!response.ok) {
@@ -29,5 +29,5 @@ export const useGetSignedInUser = () => {
   if (!isLoaded) {
     return { isLoading: true };
   }
-  return { isLoading, data };
+  return { isLoading, data: data?.data.userProfile };
 };
