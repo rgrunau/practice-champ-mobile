@@ -4,14 +4,13 @@ import { useAuth } from "@clerk/clerk-expo";
 import { useGetSignedInUser } from "../../hooks/useGetSignedInUser";
 import MainAppWrapper from "./components/layout/mainAppWrapper";
 import ProfileHeader from "./components/layout/profile/profileHeader";
-import InstrumentsSection from "./components/layout/profile/instrumentsSection";
+//import InstrumentsSection from "./components/layout/profile/instrumentsSection";
 
 export default function ProfileScreen() {
   const { isLoading, data } = useGetSignedInUser() ?? {};
   const { signOut } = useAuth();
   const { userProfile } = data?.data ?? {};
-  console.log("userProfile", userProfile);
-  console.log("instrument", userProfile?.instruments);
+
   return (
     <MainAppWrapper>
       <SafeAreaView style={styles.container}>
@@ -19,9 +18,8 @@ export default function ProfileScreen() {
           <>
             <ProfileHeader />
             <View style={styles.body}>
-              <InstrumentsSection instruments={userProfile?.instruments} />
               <View>
-                {data?.data?.userProfile?.bio && (
+                {userProfile?.bio && (
                   <Text style={styles.bodyText}>
                     {data?.data?.userProfile?.bio}
                   </Text>
@@ -32,15 +30,15 @@ export default function ProfileScreen() {
                   </View>
                 )}
               </View>
-              <Button
-                title="Sign Out"
-                onPress={() => {
-                  signOut();
-                }}
-              />
             </View>
           </>
         )}
+        <Button
+          title="Sign Out"
+          onPress={() => {
+            signOut();
+          }}
+        />
       </SafeAreaView>
     </MainAppWrapper>
   );

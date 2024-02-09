@@ -1,22 +1,17 @@
-import {
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, TextInput, StyleSheet } from "react-native";
 import MainAppWrapper from "./components/layout/mainAppWrapper";
 import CreateButton from "../../components/buttons/createButton";
 import { useStartNewSession } from "./hooks/useStartNewSession";
 import { useGetSignedInUser } from "../../hooks/useGetSignedInUser";
 import { useStore } from "../../store/store";
+import ActiveSession from "./components/practice-sessions/activeSession";
 
 export default function NewSession() {
   const { sessionActive } = useStore();
   const { data } = useGetSignedInUser();
   console.log(data.id);
   const { mutate } = useStartNewSession();
-  const handlePress = () => {
+  const handleStartSession = () => {
     console.log("pressed");
     mutate(data?.id);
   };
@@ -28,17 +23,10 @@ export default function NewSession() {
         <Text>Session Name</Text>
         <TextInput />
       </View>
-      {sessionActive && (
-        <View>
-          <Text>Session Active</Text>
-          <TouchableOpacity>
-            <Text>End Session</Text>
-          </TouchableOpacity>
-        </View>
-      )}
+      {sessionActive && <ActiveSession />}
       {!sessionActive && (
         <View>
-          <CreateButton handlePress={handlePress} text="Start Block" />
+          <CreateButton handlePress={handleStartSession} text="Start Block" />
         </View>
       )}
     </MainAppWrapper>

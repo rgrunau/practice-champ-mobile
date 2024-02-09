@@ -17,12 +17,13 @@ const startNewSession = async (id: number) => {
 };
 
 export const useStartNewSession = () => {
-  const { setSessionActive } = useStore();
+  const { setSessionActive, setActiveSessionId } = useStore();
   return useMutation({
     mutationFn: startNewSession,
     onSuccess: (data) => {
       console.log(data);
       setSessionActive(true);
+      setActiveSessionId(data.data.id);
     },
     onError: (error) => {
       console.log(error);
