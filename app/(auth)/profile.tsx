@@ -1,4 +1,4 @@
-import { StyleSheet, View, Button, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Button, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useAuth } from "@clerk/clerk-expo";
 import { useGetSignedInUser } from "../../hooks/useGetSignedInUser";

@@ -1,5 +1,4 @@
 import { useRouter } from "expo-router";
-import { Icon } from "@fortawesome/fontawesome-svg-core";
 import React from "react";
 import {
   SafeAreaView,
@@ -21,6 +20,9 @@ export default function MainAppWrapper({
     <View style={styles.container}>
       <SafeAreaView>{children}</SafeAreaView>
       <View style={styles.footer}>
+        <TouchableOpacity onPress={() => router.replace("/home")}>
+          <Text style={styles.appBarText}>Home</Text>
+        </TouchableOpacity>
         <TouchableOpacity onPress={() => router.replace("/new-session")}>
           <FontAwesomeIcon icon={faPlus} size={30} color="#fff" />
         </TouchableOpacity>

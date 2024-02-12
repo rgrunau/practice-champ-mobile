@@ -1,13 +1,11 @@
-import { useRouter } from "expo-router";
 import { View, Text, StyleSheet } from "react-native";
 import MainAppWrapper from "./components/layout/mainAppWrapper";
+import RecentSessions from "./components/practice-sessions/recentSessions";
 import { useGetSignedInUser } from "../../hooks/useGetSignedInUser";
 
 export default function home() {
-  const router = useRouter();
-  const { isLoading, data } = useGetSignedInUser() ?? {};
-  const { screenName, userProfile } = data?.data ?? {};
-
+  const { isLoading, data } = useGetSignedInUser();
+  console.log(data);
   return (
     <MainAppWrapper>
       {isLoading && (
@@ -15,13 +13,7 @@ export default function home() {
           <Text style={styles.text}>Loading...</Text>
         </View>
       )}
-      {!isLoading && data?.data && (
-        <View style={styles.container}>
-          <Text style={styles.text}>
-            Welcome to practice champ, {userProfile.screenName}!
-          </Text>
-        </View>
-      )}
+      {!isLoading && <RecentSessions id={data?.userId} />}
     </MainAppWrapper>
   );
 }

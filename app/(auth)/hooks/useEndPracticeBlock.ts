@@ -1,5 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { useStore } from "../../../store/store";
+
 const endPracticeBlock = async (id: number) => {
   const response = await fetch("http://localhost:3000/api/sessions/end", {
     method: "PATCH",
