@@ -1,7 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
 const getUserSessions = async (userId: number) => {
-  console.log(`getting sessions for user with id: ${userId}`);
   const response = await fetch(
     `http://localhost:3000/api/sessions/get/${userId}`,
     {
@@ -11,7 +10,6 @@ const getUserSessions = async (userId: number) => {
       },
     },
   );
-  console.log("response", response);
   if (!response.ok) {
     console.log(response);
     throw new Error("Failed to get user sessions");
