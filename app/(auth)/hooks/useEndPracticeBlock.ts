@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useStore } from "../../../store/store";
 
 const endPracticeBlock = async (id: number) => {
@@ -23,6 +23,7 @@ export const useEndPracticeBlock = () => {
     onSuccess: () => {
       setSessionActive(false);
       setActiveSessionId(null);
+      useQueryClient().invalidateQueries({ queryKey: ["sessions"] });
     },
     onError: (error) => {
       console.error(error);

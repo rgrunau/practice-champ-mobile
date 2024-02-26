@@ -17,7 +17,25 @@ const getUserSessions = async (userId: number) => {
   return response.json();
 };
 
-export const useGetUserSessions = (userId: number) => {
+export interface UserSession {
+  id: number;
+  createdAt: string;
+  title: string;
+  isPublic: boolean;
+  startTime: string;
+  endTime: string;
+  notes: string;
+  userId: number;
+  uploadedFile: string | null;
+}
+
+interface GetUserSessionReturn {
+  isError: boolean;
+  isLoading: boolean;
+  userSessions: UserSession[] | undefined;
+}
+
+export const useGetUserSessions = (userId: number): GetUserSessionReturn => {
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["userSessions", userId],
     queryFn: () => getUserSessions(userId),
@@ -27,5 +45,12 @@ export const useGetUserSessions = (userId: number) => {
     console.log("Error fetching user sessions");
     console.log(error);
   }
-  return { userSessions: data?.data, isLoading, isError };
+  const userSessions = data?.data?.map((session: UserSession) => {
+    const formattedDate = new Date(session.createdAt).toLocaleDateString();
+    // Format the date to be more readable
+    // update the session.createdAt to be the formatted date
+    // return the session
+    return { ...session, createdAt: formattedDate };
+  });
+  return { userSessions, isLoading, isError };
 };

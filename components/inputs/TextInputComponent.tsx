@@ -35,7 +35,7 @@ const TextInputComponent = ({
 
 const styles = StyleSheet.create({
   inputContainer: {
-    width: "100%",
+    width: 400,
     marginBottom: 8,
     marginTop: 8,
   },

@@ -30,7 +30,7 @@ export default function signIn() {
         ({
           ...prevState,
           [name]: value || "",
-        } as Credentials)
+        }) as Credentials,
     );
   };
   const handleSignIn = async () => {
@@ -91,12 +91,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   inputContainer: {
-    width: 300,
+    width: "100%",
     marginBottom: 8,
     marginTop: 8,
   },
   input: {
-    width: 300,
+    width: 400,
     height: 50,
     borderWidth: 1,
     borderColor: "#000",
